@@ -1,0 +1,22 @@
+#! /bin/bash
+
+set -e
+set -u
+
+t=$1
+
+echo "compiling $t"
+if ! timeout 2s gcc -I include $t -o $t.bin
+then
+	echo "FAIL"
+	exit
+fi
+
+echo "running $t.bin"
+if ! timeout 2s ./$t.bin 
+then
+	echo "FAIL"
+	exit
+fi
+
+echo "PASS"

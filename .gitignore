@@ -1,0 +1,4 @@
+test/execute/*.result
+test/execute/*.s
+test/execute/*.ssa
+test/execute/*.bin
