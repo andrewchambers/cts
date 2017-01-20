@@ -1,0 +1,15 @@
+#! /bin/bash
+
+set -e
+set -u
+
+t=$1
+
+echo "compiling $t"
+if ! timeout 2s tcc -run -I include $t
+then
+	echo "FAIL"
+	exit
+fi
+
+echo "PASS"
