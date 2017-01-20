@@ -37,7 +37,7 @@ do
 done
 
 echo "summary:"
-echo "$passed passed, $failed failed, $skipped skiped, $unknown unknown"
+echo "$passed passed, $failed failed, $skipped skipped, $unknown unknown"
 
 if test $failed -ne 0
 then
