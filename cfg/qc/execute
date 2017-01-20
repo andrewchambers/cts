@@ -1,0 +1,36 @@
+#! /bin/bash
+
+set -e
+set -u
+
+t=$1
+
+echo "compiling $t"
+if ! timeout 2s qc -I include $t > $t.ssa
+then
+	echo "FAIL"
+	exit
+fi
+
+echo "running qbe on $t.ssa"
+if ! timeout 2s qbe $t.ssa > $t.s
+then
+	echo "FAIL"
+	exit
+fi
+
+echo "assembling $t.s"
+if ! timeout 2s cc -fno-pie -static $t.s -o $t.bin
+then
+	echo "FAIL"
+	exit
+fi
+
+echo "running $t.bin"
+if ! timeout 2s ./$t.bin 
+then
+	echo "FAIL"
+	exit
+fi
+
+echo "PASS"
